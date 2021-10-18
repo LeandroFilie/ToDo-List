@@ -1,0 +1,146 @@
+.lateral-menu{
+  padding: 3rem;
+  min-height: 100vh;
+  width: auto;
+
+  @include displayFlex(center, flex-start);
+  flex-direction: column;
+  gap: 6rem;
+
+  background: $secondary-bg-color;
+
+  h1{
+    font-size: 1.85rem;
+    color: $primary-color;
+  }
+
+  .menu{
+    @include displayFlex(center, center);
+    flex-direction: column;
+    gap: 4rem;
+
+    li{
+      display: flex;
+      cursor: pointer;
+    }
+
+  }
+
+  .menu-button {
+    display: none;
+    width: 30px;
+  
+    background-color: transparent;
+    border: none;
+  
+    transition: 0.2s all;
+
+    .menu-icon {
+      width: 30px;
+      height: 3px;
+      background-color: $primary-color;
+      display: block;
+      position: relative;
+      border-radius: 30px;
+  
+      &::after, &::before {
+        content: "";
+        display: block;
+        height: 3px;
+        background-color: $primary-color;
+        position: absolute;
+        right: 0;
+        transition: 0.2s all;
+        border-radius: 30px;
+      }
+  
+      &::before {
+        margin-top: -8px;
+        width: 30px;
+      }
+  
+      &::after {
+        margin-top: 8px;
+        width: 30px;
+      }
+  
+    }
+
+    &.active .menu-icon{
+      height: 0;
+      width: 30px;
+  
+      &::after{
+        width: 30px;
+        transform: rotate(45deg);
+        margin-top: 0;
+      }
+  
+      &::before{
+        transform: rotate(-45deg);
+        margin-top: 0;
+      }
+    }
+  }
+
+}
+
+@media (max-width: 600px){
+  main{
+    flex-direction: column;
+  }
+  .lateral-menu{
+    min-height: 100%;
+    padding: 1rem 1.5rem;
+
+    header{
+      @include displayFlex(center, space-between);
+      width: 100%;
+    }
+
+    .menu{
+      display: none;
+    }
+
+    .menu-button {
+      display: block;
+      z-index: 101;
+    }
+
+    .menu.active {
+      position: fixed;
+      top: 0;
+      right: 0;
+      margin: 0;
+      padding: 100px 20px;
+  
+      width: 100%;
+      max-width: 250px;
+      min-height: 100vh;
+  
+      background: $secondary-bg-color;
+      
+      @include displayFlex(center, flex-start);
+      flex-direction: column;
+
+      animation: slide-in-right 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  
+      z-index: 100;
+
+      li{
+        font-size: 1.35rem;
+      }
+    }
+
+    @keyframes slide-in-right {
+      0% {
+        transform: translateX(600px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+  } 
+
+}
