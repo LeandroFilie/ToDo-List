@@ -8,7 +8,6 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-  <main>
     <section id="lateralMenu" class="lateral-menu">
       <header>
         <h1>ToDo List</h1>
@@ -18,29 +17,31 @@
       </header>
       
       <ul class="menu" id="menu">
-        <li>Hoje</li>
+        <li class="current">Hoje</li>
         <li>Em Aberto</li>
-        <li>Concluída</li>
+        <li >Concluída</li>
         <li>Todas</li>   
+        <li id="switch-theme-mobile"><img src="./assets/moon.svg" alt="Tema Escuro"></li>  
       </ul>
     </section>
 
-    <section class="section-tasks">
-      <header>
-        <div id="currentDate"></div>
-        <img src="./assets/moon.svg" alt="Tema Escuro" />
-      </header>
-      
-      <div id="add-tasks">
-        <i>+</i>
-        <span>Adicionar Tarefa</span>
+    <main>
+      <div class="tasks">
+        <header>
+          <div id="currentDate"></div>
+          <img src="./assets/moon.svg" alt="Tema Escuro" id="switch-theme"/>
+        </header>
+        <button id="add-tasks" class="btn-add-tasks">
+          <span>Adicionar Tarefa</span>
+        </button>
       </div>
 
-      <div id="tasks">
+      <div id="tasks-list">
+
         <div class="card-task">
           <div class="task-header">
             <h3>Título Tarefa</h3>
-            <span class="date-task"></span>
+            <span class="date-task">19/10/2021</span>
           </div>
           <p>Descrição</p>
           <div class="actions">
@@ -48,9 +49,21 @@
             <img src="./assets/trash.svg" alt="Excluir" />
           </div>
         </div>
+
+        <div class="card-task">
+          <div class="task-header">
+            <h3>Título Tarefa</h3>
+            <span class="date-task">19/10/2021</span>
+          </div>
+          <p>Descrição</p>
+          <div class="actions">
+            <img src="./assets/check-circle.svg" alt="Marcar como concluida" />
+            <img src="./assets/trash.svg" alt="Excluir" />
+          </div>
+        </div>
+
       </div>
       
-    </section>
-  </main>
+    </main>
 </body>
 </html>

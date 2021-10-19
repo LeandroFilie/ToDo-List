@@ -7,11 +7,12 @@
 body{
   color: $text-color;
   font-family: 'Poppins';
-  background: $bg-color;
+  
+  display: flex;
 }
 
 main{
-  display: flex;
+  background: $bg-color;
 }
 
 ul{

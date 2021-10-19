@@ -9,13 +9,13 @@
 body {
   color: #29292E;
   font-family: 'Poppins';
-  background: #FEFEFE;
-}
-
-main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+main {
+  background: #FEFEFE;
 }
 
 ul {
@@ -40,12 +40,13 @@ ul {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 6rem;
-  background: #F8F8F8;
+  background: #f5f5f5;
 }
 
 .lateral-menu h1 {
   font-size: 1.85rem;
   color: #2660A4;
+  white-space: nowrap;
 }
 
 .lateral-menu .menu {
@@ -63,13 +64,32 @@ ul {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 4rem;
+  width: 100%;
 }
 
 .lateral-menu .menu li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   cursor: pointer;
+}
+
+.lateral-menu .menu li.current {
+  background: #2660A4;
+  color: #F8F8F8;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.lateral-menu .menu #switch-theme-mobile {
+  display: none;
 }
 
 .lateral-menu .menu-button {
@@ -131,7 +151,7 @@ ul {
 }
 
 @media (max-width: 600px) {
-  main {
+  body {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -156,6 +176,9 @@ ul {
   .lateral-menu .menu {
     display: none;
   }
+  .lateral-menu .menu #switch-theme-mobile {
+    display: block;
+  }
   .lateral-menu .menu-button {
     display: block;
     z-index: 101;
@@ -169,7 +192,7 @@ ul {
     width: 100%;
     max-width: 250px;
     min-height: 100vh;
-    background: #F8F8F8;
+    background: #f5f5f5;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -186,9 +209,6 @@ ul {
     -webkit-animation: slide-in-right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
             animation: slide-in-right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     z-index: 100;
-  }
-  .lateral-menu .menu.active li {
-    font-size: 1.35rem;
   }
   @-webkit-keyframes slide-in-right {
     0% {
@@ -210,9 +230,176 @@ ul {
               transform: translateX(0);
     }
   }
+  .tasks #switch-theme {
+    display: none;
+  }
 }
 
-.section-tasks {
+main {
   padding: 3rem;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.tasks {
+  max-width: 650px;
+  width: 100%;
+}
+
+.tasks header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 2rem;
+}
+
+.tasks header #currentDate {
+  font-size: 1.375rem;
+  text-align: center;
+}
+
+.tasks .btn-add-tasks {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 8px;
+  background: #2660A4;
+  -webkit-filter: drop-shadow(0px 2px 12px rgba(0, 0, 0, 0.04));
+          filter: drop-shadow(0px 2px 12px rgba(0, 0, 0, 0.04));
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border: none;
+  cursor: pointer;
+  font-family: 'Poppins';
+  color: #fff;
+  padding: 0.75rem 0.5rem;
+  margin: 2rem 0;
+  border-radius: 4px;
+}
+
+.tasks .btn-add-tasks::before {
+  content: '+';
+  border-radius: 50%;
+  background: #fff;
+  color: #2660A4;
+  width: 24px;
+  height: 24px;
+  font-size: 1.2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#tasks-list {
+  max-width: 650px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 24px;
+}
+
+#tasks-list .card-task {
+  width: 100%;
+  border-radius: 4px;
+  background: #f5f5f5;
+  -webkit-filter: drop-shadow(0px 2px 12px rgba(0, 0, 0, 0.04));
+          filter: drop-shadow(0px 2px 12px rgba(0, 0, 0, 0.04));
+  padding: 1rem;
+}
+
+#tasks-list .card-task .task-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+#tasks-list .card-task .task-header .date-task {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: #2660A4;
+  border-radius: 8px;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.85rem;
+}
+
+#tasks-list .card-task p {
+  margin: 1rem 0;
+}
+
+#tasks-list .card-task .actions {
+  margin-top: 8px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 48px;
+}
+
+@media (max-width: 450px) {
+  .tasks {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
 }
 /*# sourceMappingURL=style.css.map */

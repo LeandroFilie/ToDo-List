@@ -12,16 +12,31 @@
   h1{
     font-size: 1.85rem;
     color: $primary-color;
+    white-space: nowrap;
   }
 
   .menu{
     @include displayFlex(center, center);
     flex-direction: column;
     gap: 4rem;
-
+    width: 100%;
+    
     li{
-      display: flex;
+      @include displayFlex(center, center);
       cursor: pointer;
+
+      &.current{
+        background: $primary-color;
+        color: $secondary-text-color;
+        width: 100%;
+
+        padding: 0.5rem;
+        border-radius: 4px;
+      }
+    }
+
+    #switch-theme-mobile{
+      display: none;
     }
 
   }
@@ -86,7 +101,7 @@
 }
 
 @media (max-width: 600px){
-  main{
+  body{
     flex-direction: column;
   }
   .lateral-menu{
@@ -100,6 +115,10 @@
 
     .menu{
       display: none;
+
+      #switch-theme-mobile{
+        display: block;
+      }
     }
 
     .menu-button {
@@ -126,10 +145,6 @@
       animation: slide-in-right 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
   
       z-index: 100;
-
-      li{
-        font-size: 1.35rem;
-      }
     }
 
     @keyframes slide-in-right {
@@ -142,5 +157,11 @@
     }
 
   } 
+
+  .tasks{
+    #switch-theme{
+      display: none;
+    }
+  }
 
 }

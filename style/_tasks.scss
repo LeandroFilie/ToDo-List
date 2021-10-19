@@ -1,0 +1,102 @@
+main{
+  padding: 3rem;
+  width: 100%;
+
+  @include displayFlex(center,flex-start);
+  flex-direction: column;
+}
+
+.tasks{
+  max-width: 650px;
+  width: 100%;
+
+  header{
+    @include displayFlex(center,space-between);
+    gap: 2rem;
+
+    #currentDate{
+      font-size: 1.375rem;
+      text-align: center;
+    }
+
+  }
+
+  .btn-add-tasks{
+    @include displayFlex(center,center);
+    gap: 8px;
+    background: $primary-color;
+    filter: drop-shadow(0px 2px 12px rgba(0, 0, 0, 0.04));
+    width: fit-content;
+    border: none;
+
+    cursor: pointer;
+
+    font-family: 'Poppins';
+    color: #fff;
+
+    padding: 0.75rem 0.5rem;
+    margin: 2rem 0;
+    border-radius: 4px;
+
+    &::before{
+      content: '+';
+      border-radius: 50%;
+      background: #fff;
+      color: $primary-color;
+      width: 24px;
+      height: 24px;
+      font-size: 1.2rem;
+      @include displayFlex(center,center);
+    }
+      
+    
+  }
+}
+
+#tasks-list{
+  max-width: 650px;
+  width: 100%;
+  @include displayFlex(flex-start,center);
+  flex-direction: column;
+  gap: 24px;
+
+  .card-task{
+    width: 100%;
+    border-radius: 4px;
+    background: $secondary-bg-color;
+    filter: $filter-box-shadow;
+    padding: 1rem;
+
+    .task-header{
+      @include displayFlex(center, space-between);
+      margin-bottom: 8px;
+
+      .date-task{
+        display: flex;
+        background: $primary-color;
+        border-radius: 8px;
+        color: #fff;
+        padding: 0.2rem 0.5rem;
+        font-size: 0.85rem;
+      }
+    }
+
+    p{
+      margin: 1rem 0;
+
+    }
+
+    .actions{
+      margin-top: 8px;
+      display: flex;
+      gap: 48px;
+    }
+  }
+}
+
+@media (max-width: 450px){
+  .tasks{
+    @include displayFlex(center,center);
+    flex-direction: column;
+  }
+}
