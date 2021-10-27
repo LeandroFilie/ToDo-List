@@ -16,10 +16,19 @@ getDate();
 const buttonMenu = document.getElementById('open-menu');
 const menu = document.getElementById('menu')
 
-function toggleClass(){
+function toggleClassMenuMobile(){
   buttonMenu.classList.toggle('active');
   menu.classList.toggle('active');
 
 }
+buttonMenu.addEventListener('click',toggleClassMenuMobile);
 
-buttonMenu.addEventListener('click',toggleClass);
+
+function toggleClassModal(){
+  console.log('Clicou');
+  const modal = document.getElementById('modal');
+  const modalWrapper = document.getElementById('modal-wrapper');
+
+  modal.classList.toggle('show-modal');
+  modalWrapper.classList.toggle('show');
+}

@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./assets/check-circle.svg" type="image/x-icon">
   <title>ToDo List</title>
   <link rel="stylesheet" href="style/style.css">
   <script src="script.js" defer></script>
 </head>
 <body>
+  <div class="container">
     <section id="lateralMenu" class="lateral-menu">
       <header>
         <h1>ToDo List</h1>
@@ -31,7 +33,7 @@
           <div id="currentDate"></div>
           <img src="./assets/moon.svg" alt="Tema Escuro" id="switch-theme"/>
         </header>
-        <button id="add-tasks" class="btn-add-tasks">
+        <button id="add-tasks" class="btn-add-tasks" onclick="toggleClassModal()">
           <span>Adicionar Tarefa</span>
         </button>
       </div>
@@ -65,5 +67,43 @@
       </div>
       
     </main>
+  </div>
+
+  <div id="modal-wrapper">
+
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h2>Adicionar Tarefa</h2>
+        <img src="./assets/close.svg" alt="Fechar" class="close" onclick="toggleClassModal()" >
+      </div>
+
+      <form method="POST" class="modal-content">
+        <div class="input-group">
+          <label for="task-title">Tarefa</label>
+          <input type="text" name="task-title" id="task-title" />
+        </div>
+
+        <div class="input-group">
+          <label for="description">Descrição</label>
+          <textarea name="description" id="description" ></textarea>
+        </div>
+
+        <div class="input-group">
+          <label for="date">Data de Conclusão</label>
+          <input type="date" name="date" id="date" />
+        </div>
+        
+        <div class="modal-actions">
+          <button type="button" class="cancel" onclick="toggleClassModal()">Cancelar</button>
+          <button type="submit" class="submit">Salvar</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  
+
 </body>
 </html>

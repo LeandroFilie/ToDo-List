@@ -1,0 +1,130 @@
+#modal-wrapper{
+  display: none;
+
+  &.show{
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    min-height: 100vh;
+    height: 100%;
+
+    @include displayFlex(flex-start, center);
+
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.modal{
+  display: none;
+
+  &.show-modal{
+    display: block;
+
+    background: $secondary-bg-color;
+    border-radius: 8px;
+    margin: 3rem 0.5rem;
+    width: 40%;
+
+    animation: showModal 0.2s;
+
+    @keyframes showModal {
+      0%{
+        transform: translateY(-300px);
+      }
+      100%{
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .modal-header{
+    @include displayFlex(center, space-between);
+    padding: 0.5rem 2rem;
+
+    border-bottom: 1px solid #e8e8e8;
+
+    h2{
+      font-size: 1.35rem;
+      font-weight: normal;
+    }
+
+    .close{
+      cursor: pointer;
+    }
+  }
+
+  .modal-content{
+    @include displayFlex(flex-start, space-around);
+    flex-direction: column;
+    padding: 0.5rem 2rem;
+    width: 100%;
+    gap: 1rem;
+
+    .input-group{
+      @include displayFlex(flex-start, center);
+      flex-direction: column;
+      width: 100%;
+
+      input, textarea{
+        border-radius: 8px;
+        background: $bg-color;
+        filter: $filter-box-shadow;
+        border: none;
+
+        padding: 0.75rem 1rem;
+        width: 100%;
+      }
+
+      textarea{
+        resize: none;
+        height: 8rem;
+      }
+
+    }
+  }
+
+  .modal-actions{
+    width: 100%;
+
+    padding-bottom: 1rem;
+    @include displayFlex(center, space-between);
+
+    button{
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Poppins';
+      cursor: pointer;
+
+      &.cancel{
+        background: $completed-bg-color;
+        color: $completed-text-color;
+      }
+
+      &.submit{
+        background: $primary-color;
+        color: #fff;
+      }
+    }
+  }
+
+}
+
+@media(max-width: 992px){
+  .modal.show-modal{
+    width: 60%;
+  }
+}
+
+@media(max-width: 768px){
+  .modal.show-modal{
+    width: 70%;
+  }
+}
+
+@media(max-width: 576px){
+  .modal.show-modal{
+    width: 90%;
+  }
+}

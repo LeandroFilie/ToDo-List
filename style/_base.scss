@@ -5,9 +5,13 @@
 }
 
 body{
+  position: relative;
+  
   color: $text-color;
   font-family: 'Poppins';
-  
+}
+
+.container{ 
   display: flex;
 }
 
