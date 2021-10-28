@@ -2,13 +2,15 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Poppins' !important;
 }
+
+
 
 body{
   position: relative;
-  
-  color: $text-color;
-  font-family: 'Poppins';
+
+  color: var(--text-color);
 }
 
 .container{ 
@@ -16,7 +18,8 @@ body{
 }
 
 main{
-  background: $bg-color;
+  background: var(--bg-color);
+  min-height: 100vh;
 }
 
 ul{

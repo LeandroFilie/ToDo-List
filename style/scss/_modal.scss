@@ -19,11 +19,12 @@
 
   &.show-modal{
     display: block;
-
-    background: $secondary-bg-color;
+    border: 1px solid var(--border-color);
+    background: var(--secondary-bg-color);
     border-radius: 8px;
     margin: 3rem 0.5rem;
-    width: 40%;
+    width: 100%;
+    max-width: 650px;
 
     animation: showModal 0.2s;
 
@@ -41,7 +42,7 @@
     @include displayFlex(center, space-between);
     padding: 0.5rem 2rem;
 
-    border-bottom: 1px solid #e8e8e8;
+    border-bottom: 1px solid var(--border-color);
 
     h2{
       font-size: 1.35rem;
@@ -49,7 +50,11 @@
     }
 
     .close{
+      @include displayFlex(center, center);
       cursor: pointer;
+      svg{
+        stroke: var(--text-color);
+      }
     }
   }
 
@@ -67,12 +72,14 @@
 
       input, textarea{
         border-radius: 8px;
-        background: $bg-color;
+        background: var(--bg-color);
         filter: $filter-box-shadow;
         border: none;
 
         padding: 0.75rem 1rem;
         width: 100%;
+
+        color: var(--text-color);
       }
 
       textarea{
@@ -94,37 +101,18 @@
       border: none;
       border-radius: 8px;
       font-size: 1rem;
-      font-family: 'Poppins';
       cursor: pointer;
 
       &.cancel{
-        background: $completed-bg-color;
-        color: $completed-text-color;
+        background: var(--completed-bg-color);
+        color: var(--completed-text-color);
       }
 
       &.submit{
-        background: $primary-color;
+        background: var(--primary-color);
         color: #fff;
       }
     }
   }
 
-}
-
-@media(max-width: 992px){
-  .modal.show-modal{
-    width: 60%;
-  }
-}
-
-@media(max-width: 768px){
-  .modal.show-modal{
-    width: 70%;
-  }
-}
-
-@media(max-width: 576px){
-  .modal.show-modal{
-    width: 90%;
-  }
 }

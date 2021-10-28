@@ -32,3 +32,27 @@ function toggleClassModal(){
   modal.classList.toggle('show-modal');
   modalWrapper.classList.toggle('show');
 }
+
+const buttonsSwitchTheme = document.querySelectorAll('.theme-switcher');
+
+buttonsSwitchTheme.forEach(button => button.addEventListener('click',switchTheme));
+
+function switchTheme(){
+  let currentTheme = document.getElementsByTagName('html')[0].dataset;
+
+  if(currentTheme.theme === 'light'){
+    buttonsSwitchTheme.forEach(button => {
+      button.attributes.src.value = './assets/sun.svg';
+    })
+
+    currentTheme.theme = 'dark';
+  }
+  else{
+    buttonsSwitchTheme.forEach(button => {
+      button.attributes.src.value = './assets/moon.svg';
+    })
+
+    currentTheme.theme = 'light';
+  }
+}
+
