@@ -392,6 +392,8 @@ main {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   margin-bottom: 8px;
 }
 
@@ -406,6 +408,14 @@ main {
   font-size: 0.85rem;
 }
 
+#tasks-list .card-task .task-header .date-task.past {
+  background: #E73F5D;
+}
+
+#tasks-list .card-task .task-header .date-task.present {
+  background: #E7A43F;
+}
+
 #tasks-list .card-task p {
   margin: 1rem 0;
 }
@@ -416,6 +426,19 @@ main {
   display: -ms-flexbox;
   display: flex;
   gap: 48px;
+}
+
+#tasks-list .card-task .actions img {
+  cursor: pointer;
+}
+
+#tasks-list .card-task.completed {
+  background: var(--completed-bg-color);
+  color: var(--completed-text-color);
+}
+
+#tasks-list .card-task.completed .date-task {
+  background: var(--completed-text-color);
 }
 
 @media (max-width: 450px) {
@@ -455,7 +478,7 @@ main {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .modal {

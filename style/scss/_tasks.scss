@@ -73,6 +73,7 @@ main{
 
     .task-header{
       @include displayFlex(center, space-between);
+      flex-wrap: wrap;
       margin-bottom: 8px;
 
       .date-task{
@@ -82,6 +83,14 @@ main{
         color: #fff;
         padding: 0.2rem 0.5rem;
         font-size: 0.85rem;
+
+        &.past{
+          background: #E73F5D;
+        }
+
+        &.present{
+          background: #E7A43F;
+        }
       }
     }
 
@@ -94,6 +103,19 @@ main{
       margin-top: 8px;
       display: flex;
       gap: 48px;
+
+      img{
+        cursor: pointer;
+      }
+    }
+
+    &.completed{
+      background: var(--completed-bg-color);
+      color: var(--completed-text-color);
+
+      .date-task{
+        background: var(--completed-text-color);
+      }
     }
   }
 }
