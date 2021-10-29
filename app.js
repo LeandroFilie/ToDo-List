@@ -40,7 +40,7 @@ const tasks = [
   {
     "title": "Nome Tarefa",
     "description": "Descrição da Tarefa",
-    "date": "30/09/2021",
+    "date": "30/10/2021",
     "status": "opened"
   }
 ]
@@ -94,10 +94,6 @@ function compareDate(date){
   }
   else if(differenceDates < 0){
     return 'future'
-  }
-  else{
-    console.log('aqui');
-    return 'present'
   }
 }
 

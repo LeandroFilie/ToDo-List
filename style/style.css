@@ -412,10 +412,6 @@ main {
   background: #E73F5D;
 }
 
-#tasks-list .card-task .task-header .date-task.present {
-  background: #E7A43F;
-}
-
 #tasks-list .card-task p {
   margin: 1rem 0;
 }
@@ -437,7 +433,7 @@ main {
   color: var(--completed-text-color);
 }
 
-#tasks-list .card-task.completed .date-task {
+#tasks-list .card-task.completed .date-task, #tasks-list .card-task.completed .date-task.past {
   background: var(--completed-text-color);
 }
 
