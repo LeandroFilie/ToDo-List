@@ -107,13 +107,13 @@ ul {
       -ms-flex-pack: center;
           justify-content: center;
   cursor: pointer;
+  padding: 0.5rem;
 }
 
 .lateral-menu .menu li.current {
   background: var(--primary-color);
   color: var(--secondary-text-color);
   width: 100%;
-  padding: 0.5rem;
   border-radius: 4px;
 }
 

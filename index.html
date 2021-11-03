@@ -19,10 +19,10 @@
       </header>
       
       <ul class="menu" id="menu">
-        <li id="today" class="current">Hoje</li>
-        <li id="opened">Em Aberto</li>
-        <li id="completed">Concluída</li>
-        <li id="all">Todas</li>   
+        <li id="today" onclick="currentStatusMenuItem(this)" class="current">Hoje</li>
+        <li id="opened" onclick="currentStatusMenuItem(this)">Em Aberto</li>
+        <li id="completed" onclick="currentStatusMenuItem(this)">Concluída</li>
+        <li id="all" onclick="currentStatusMenuItem(this)">Todas</li>   
         <li id="switch-theme-mobile" onclick="switchTheme()"><img src="./assets/moon.svg" alt="Tema Escuro" class="theme-switcher"></li>  
       </ul>
     </section>

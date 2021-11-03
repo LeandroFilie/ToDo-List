@@ -20,17 +20,17 @@
     flex-direction: column;
     gap: 4rem;
     width: 100%;
-    
+        
     li{
       @include displayFlex(center, center);
       cursor: pointer;
+      padding: 0.5rem;
 
       &.current{
         background: var(--primary-color);
         color: var(--secondary-text-color);
         width: 100%;
 
-        padding: 0.5rem;
         border-radius: 4px;
       }
     }

@@ -7,7 +7,6 @@ function toggleClassMenuMobile(){
 }
 
 function toggleClassModal(){
-  console.log('Clicou');
   const modal = document.getElementById('modal');
   const modalWrapper = document.getElementById('modal-wrapper');
 
@@ -38,23 +37,104 @@ function switchTheme(){
 // App
 const tasks = [
   {
+    "id": 1,
     "title": "Nome Tarefa",
     "description": "Descrição da Tarefa",
     "date": "30/10/2021",
     "status": "opened"
+  },
+  {
+    "id": 2,
+    "title": "Nome Tarefa",
+    "description": "Descrição da Tarefa",
+    "date": "30/10/2021",
+    "status": "completed"
+  },
+  {
+    "id": 3,
+    "title": "Nome Tarefa",
+    "description": "Descrição da Tarefa",
+    "date": "01/11/2021",
+    "status": "opened"
+  },
+  {
+    "id": 4,
+    "title": "Nome Tarefa",
+    "description": "Descrição da Tarefa",
+    "date": "02/11/2021",
+    "status": "completed"
   }
 ]
 
-function init(){
-  getDate();
+function getStatusFilter(){
+  const status = document.querySelector('#menu li.current').id;
 
-  tasks.forEach((task,index) => buildCardTask(task,index));
+  return status;
 }
 
-function reload(){
- document.getElementById('tasks-list').innerHTML = '';
+function currentStatusMenuItem(element){
+  const itensMenu = document.querySelectorAll('#menu li');
+  itensMenu.forEach(item => item.classList.remove('current'))
 
-  init();
+  element.classList.add('current');
+  const currentFilter = getStatusFilter();
+
+  reload(currentFilter);
+}
+
+function getTasksWithStatus(status){
+  const buttonModal = document.getElementById('add-tasks');
+  buttonModal.style.visibility = 'visible';
+  buttonModal.textContent = 'Adicionar Tarefa';
+
+  const fieldDate = document.getElementById('date');
+  fieldDate.value = '';
+  fieldDate.removeAttribute('disabled');
+
+  if(status === 'today'){
+    buttonModal.textContent = 'Adicionar Tarefa com conclusão para hoje';
+    const isToday = (task) => compareDate(task.date) !== 'future' && compareDate(task.date) !== 'past';
+
+    const tasksFiltered = tasks.filter(isToday);
+    tasksFiltered.forEach((task) => buildCardTask(task))
+
+    const today = new Date();
+    const todayDay = String(today.getDate()).length == 1 
+    ? `0${today.getDate()}`
+    : today.getDate();
+    const todayMonth = String(today.getDate()).length == 1 
+    ? `0${today.getDate()}`
+    : today.getDate();
+    const todayYear = today.getFullYear();
+
+    fieldDate.value = `${todayYear}-${todayMonth}-${todayDay}`;
+    fieldDate.setAttribute('disabled','disabled');
+  }
+  else if(status === 'all'){
+    const tasksFiltered = tasks;
+    tasksFiltered.forEach((task) => buildCardTask(task))
+  }
+  else{
+    const filterTasks = (task) => task.status === status;
+  
+    if(status === 'completed') document.getElementById('add-tasks').style.visibility = 'hidden';
+
+    const tasksFiltered = tasks.filter(filterTasks);
+    tasksFiltered.forEach((task) => buildCardTask(task))
+  }
+}
+
+function init(status = 'today'){
+  getDate();
+
+  getTasksWithStatus(status);
+  
+}
+
+function reload(status){
+  document.getElementById('tasks-list').innerHTML = '';
+
+  init(status);
 }
 
 function getDate(){
@@ -70,14 +150,22 @@ function getDate(){
   document.getElementById('currentDate').innerHTML = `${weekDay}, ${day} de ${month} de ${year}`;
 }
 
-function toggleComplete(index){
-  tasks[index].status = 'completed';
+function toggleCompleted(id,status){
+  const index = tasks.findIndex(task => task.id === id);
 
-  console.log(tasks);
+  if(status === 'opened') tasks[index].status = 'completed';
+  if(status === 'completed') tasks[index].status = 'opened';
 
-  const task = document.querySelector(`[data-index='${index}']`);
+  const task = document.querySelector(`[data-id='${id}']`);
 
   task.classList.toggle('completed');
+  task.classList.toggle('opened');
+
+  const currentStatus = getStatusFilter();
+
+  if(currentStatus === 'opened' || currentStatus === 'completed'){
+    reload(currentStatus);
+  } 
 }
 
 function compareDate(date){
@@ -97,17 +185,17 @@ function compareDate(date){
   }
 }
 
-function buildCardTask(task, index){
+function buildCardTask(task){
   const classDate = compareDate(task.date);
-  const html = `
+  let html = `
       <div class="task-header">
         <h3>${task.title}</h3>
         <span class="date-task ${classDate}">${task.date}</span>
       </div>
       <p>${task.description}</p>
       <div class="actions">
-        <img src="./assets/check-circle.svg" alt="Marcar como concluida" onclick="toggleComplete(${index})"/>
-        <img src="./assets/trash.svg" alt="Excluir" onclick="removeTask(${index})"/>
+        <img src="./assets/check-circle.svg" alt="Marcar como concluida" onclick="toggleCompleted(${task.id}, '${task.status}')"/>
+        <img src="./assets/trash.svg" alt="Excluir" onclick="removeTask(${task.id})"/>
       </div>
   `; 
 
@@ -115,8 +203,9 @@ function buildCardTask(task, index){
 
   const taskItem = document.createElement('div');
   taskItem.classList.add('card-task');
+  taskItem.classList.add(task.status);
   taskItem.innerHTML = html;
-  taskItem.dataset.index = index;
+  taskItem.dataset.id = task.id;
 
   taskList.appendChild(taskItem);
 
@@ -129,7 +218,7 @@ function emptyInputsForm(){
 }
 
 function addTask(event){
-  event.preventDefault();
+/*   event.preventDefault();
 
   const title = document.getElementById('task-title').value;
   const description = document.getElementById('description').value;
@@ -145,19 +234,23 @@ function addTask(event){
 
   tasks.push(newTask);
 
-  reload();
+  const currentFilter = getStatusFilter();
+
+  reload(currentFilter);
 
   emptyInputsForm();
 
-  toggleClassModal();
+  toggleClassModal(); */
 
 }
 
-function removeTask(index){
+function removeTask(id){
+  const index = tasks.findIndex(task => task.id === id);
   tasks.splice(index,1);
-  console.log(tasks);
 
-  reload();
+  const currentFilter = getStatusFilter();
+
+  reload(currentFilter);
 }
 
-init();
+init()
