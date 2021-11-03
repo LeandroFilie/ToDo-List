@@ -102,9 +102,9 @@ function getTasksWithStatus(status){
     const todayDay = String(today.getDate()).length == 1 
     ? `0${today.getDate()}`
     : today.getDate();
-    const todayMonth = String(today.getDate()).length == 1 
-    ? `0${today.getDate()}`
-    : today.getDate();
+    const todayMonth = String(today.getMonth()+1).length == 1 
+    ? `0${today.getMonth()+1}`
+    : today.getMonth()+1;
     const todayYear = today.getFullYear();
 
     fieldDate.value = `${todayYear}-${todayMonth}-${todayDay}`;
@@ -218,14 +218,17 @@ function emptyInputsForm(){
 }
 
 function addTask(event){
-/*   event.preventDefault();
+  event.preventDefault();
 
   const title = document.getElementById('task-title').value;
   const description = document.getElementById('description').value;
   let date = document.getElementById('date').value.split('-');
   date = `${date[2]}/${date[1]}/${date[0]}`;
 
+  const id = tasks[(tasks.length)-1].id + 1;
+
   const newTask = {
+    id,
     title,
     description,
     date,
@@ -234,13 +237,13 @@ function addTask(event){
 
   tasks.push(newTask);
 
+  emptyInputsForm();
+
+  toggleClassModal();
+
   const currentFilter = getStatusFilter();
 
   reload(currentFilter);
-
-  emptyInputsForm();
-
-  toggleClassModal(); */
 
 }
 

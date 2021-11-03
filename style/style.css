@@ -51,6 +51,10 @@ ul {
   list-style: none;
 }
 
+a {
+  text-decoration: none;
+}
+
 .lateral-menu {
   padding: 3rem;
   min-height: 100vh;
@@ -72,7 +76,7 @@ ul {
   background: var(--secondary-bg-color);
 }
 
-.lateral-menu h1 {
+.lateral-menu a {
   font-size: 1.85rem;
   color: var(--primary-color);
   white-space: nowrap;
