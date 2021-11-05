@@ -1,12 +1,12 @@
 // Layout
-function toggleClassMenuMobile(){
+function toggleMenuMobile(){
   const buttonMenu = document.getElementById('open-menu');
   const menu = document.getElementById('menu')
   buttonMenu.classList.toggle('active');
   menu.classList.toggle('active');
 }
 
-function toggleClassModal(){
+function toggleModal(){
   const modal = document.getElementById('modal');
   const modalWrapper = document.getElementById('modal-wrapper');
 
@@ -15,7 +15,7 @@ function toggleClassModal(){
 }
 
 function switchTheme(){
-  let currentTheme = document.getElementsByTagName('html')[0].dataset;
+  const currentTheme = document.getElementsByTagName('body')[0].dataset;
   const buttonsSwitchTheme = document.querySelectorAll('.theme-switcher');
 
   if(currentTheme.theme === 'light'){
@@ -32,6 +32,19 @@ function switchTheme(){
 
     currentTheme.theme = 'light';
   }
+}
+
+function getDate(){
+  const currentDate = new Date;
+  const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maior', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+  const weekDays = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];
+
+  const day = currentDate.getDate();
+  const month = months[currentDate.getMonth()];
+  const year = currentDate.getFullYear();
+  const weekDay = weekDays[currentDate.getDay()];
+
+  document.getElementById('currentDate').innerHTML = `${weekDay}, ${day} de ${month} de ${year}`;
 }
 
 // App
@@ -66,6 +79,14 @@ const tasks = [
   }
 ]
 
+function getTasks(){
+  
+}
+
+function uploadTasks(tasks){
+
+}
+
 function getStatusFilter(){
   const status = document.querySelector('#menu li.current').id;
 
@@ -74,7 +95,7 @@ function getStatusFilter(){
 
 function currentStatusMenuItem(element){
   const itensMenu = document.querySelectorAll('#menu li');
-  itensMenu.forEach(item => item.classList.remove('current'))
+  itensMenu.forEach(item => item.classList.remove('current'));
 
   element.classList.add('current');
   const currentFilter = getStatusFilter();
@@ -82,44 +103,69 @@ function currentStatusMenuItem(element){
   reload(currentFilter);
 }
 
-function getTasksWithStatus(status){
+function handleButtonModal(text, visibility){
   const buttonModal = document.getElementById('add-tasks');
-  buttonModal.style.visibility = 'visible';
-  buttonModal.textContent = 'Adicionar Tarefa';
 
+  buttonModal.style.visibility = visibility;
+
+  buttonModal.textContent = text;
+}
+
+function handleFieldDateModal(status = 'none'){
   const fieldDate = document.getElementById('date');
   fieldDate.value = '';
   fieldDate.removeAttribute('disabled');
 
   if(status === 'today'){
-    buttonModal.textContent = 'Adicionar Tarefa com conclusão para hoje';
-    const isToday = (task) => compareDate(task.date) !== 'future' && compareDate(task.date) !== 'past';
-
-    const tasksFiltered = tasks.filter(isToday);
-    tasksFiltered.forEach((task) => buildCardTask(task))
-
     const today = new Date();
-    const todayDay = String(today.getDate()).length == 1 
-    ? `0${today.getDate()}`
-    : today.getDate();
-    const todayMonth = String(today.getMonth()+1).length == 1 
-    ? `0${today.getMonth()+1}`
-    : today.getMonth()+1;
+
+    const todayDay = (
+      String(today.getDate()).length === 1 
+      ? `0${today.getDate()}`
+      : today.getDate()
+    );
+
+    const todayMonth = (
+      String(today.getMonth()+1).length == 1 
+      ? `0${today.getMonth()+1}`
+      : today.getMonth()+1
+    );
+
     const todayYear = today.getFullYear();
 
     fieldDate.value = `${todayYear}-${todayMonth}-${todayDay}`;
     fieldDate.setAttribute('disabled','disabled');
   }
+}
+
+function getTasksWithStatus(status){
+  handleFieldDateModal();
+
+  if(status === 'today'){
+    handleButtonModal('Adicionar Tarefa com conclusão para hoje', 'visible');
+
+    const isToday = (task) => compareDate(task.date) === 'today';
+
+    const tasksFiltered = tasks.filter(isToday).reverse();
+    tasksFiltered.forEach((task) => buildCardTask(task))
+
+    handleFieldDateModal('today');
+
+  }
   else if(status === 'all'){
-    const tasksFiltered = tasks;
+    handleButtonModal('Adicionar Tarefa', 'visible');
+
+    const tasksFiltered = tasks.reverse();
     tasksFiltered.forEach((task) => buildCardTask(task))
   }
   else{
+    status === 'completed'  
+    ? handleButtonModal('', 'hidden')
+    : handleButtonModal('Adicionar Tarefa', 'visible');
+
     const filterTasks = (task) => task.status === status;
   
-    if(status === 'completed') document.getElementById('add-tasks').style.visibility = 'hidden';
-
-    const tasksFiltered = tasks.filter(filterTasks);
+    const tasksFiltered = tasks.filter(filterTasks).reverse();
     tasksFiltered.forEach((task) => buildCardTask(task))
   }
 }
@@ -128,7 +174,6 @@ function init(status = 'today'){
   getDate();
 
   getTasksWithStatus(status);
-  
 }
 
 function reload(status){
@@ -137,24 +182,11 @@ function reload(status){
   init(status);
 }
 
-function getDate(){
-  const currentDate = new Date;
-  const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maior', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-  const weekDays = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];
-
-  const day = currentDate.getDate();
-  const month = months[currentDate.getMonth()];
-  const year = currentDate.getFullYear();
-  const weekDay = weekDays[currentDate.getDay()];
-
-  document.getElementById('currentDate').innerHTML = `${weekDay}, ${day} de ${month} de ${year}`;
-}
-
 function toggleCompleted(id,status){
-  const index = tasks.findIndex(task => task.id === id);
+  const indexTask = tasks.findIndex(task => task.id === id);
 
-  if(status === 'opened') tasks[index].status = 'completed';
-  if(status === 'completed') tasks[index].status = 'opened';
+  if(status === 'opened') tasks[indexTask].status = 'completed';
+  if(status === 'completed') tasks[indexTask].status = 'opened';
 
   const task = document.querySelector(`[data-id='${id}']`);
 
@@ -169,25 +201,27 @@ function toggleCompleted(id,status){
 }
 
 function compareDate(date){
-  let currentDate = new Date();
+  const currentDate = new Date();
   currentDate.setHours(0, 0, 0);
   currentDate.setMilliseconds(0);
 
   const dateTask = new Date(date.split('/').reverse());
   const differenceDates = currentDate - dateTask;
   
-
   if(differenceDates > 0){
-    return 'past'
+    return 'past';
   }
   else if(differenceDates < 0){
-    return 'future'
+    return 'future';
+  }
+  else{
+    return 'today';
   }
 }
 
 function buildCardTask(task){
   const classDate = compareDate(task.date);
-  let html = `
+  const html = `
       <div class="task-header">
         <h3>${task.title}</h3>
         <span class="date-task ${classDate}">${task.date}</span>
@@ -204,8 +238,8 @@ function buildCardTask(task){
   const taskItem = document.createElement('div');
   taskItem.classList.add('card-task');
   taskItem.classList.add(task.status);
-  taskItem.innerHTML = html;
   taskItem.dataset.id = task.id;
+  taskItem.innerHTML = html;
 
   taskList.appendChild(taskItem);
 
@@ -239,12 +273,11 @@ function addTask(event){
 
   emptyInputsForm();
 
-  toggleClassModal();
+  toggleModal();
 
   const currentFilter = getStatusFilter();
 
   reload(currentFilter);
-
 }
 
 function removeTask(id){

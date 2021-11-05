@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" data-theme="light">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,12 +8,12 @@
   <link rel="stylesheet" href="style/style.css">
   <script src="app.js" defer></script>
 </head>
-<body id="body">
+<body data-theme="light">
   <div class="container">
     <section id="lateralMenu" class="lateral-menu">
       <header>
         <h1><a href="">ToDo List</a></h1>
-        <button id="open-menu" class="menu-button" onclick="toggleClassMenuMobile()">
+        <button id="open-menu" class="menu-button" onclick="toggleMenuMobile()">
           <i class="menu-icon"></i>
         </button>
       </header>
@@ -33,9 +33,7 @@
           <div id="currentDate"></div>
           <img src="./assets/moon.svg" alt="Tema Escuro" class="theme-switcher" id="switch-theme" onclick="switchTheme()"/>
         </header>
-        <button id="add-tasks" class="btn-add-tasks" onclick="toggleClassModal()">
-          <span>Adicionar Tarefa</span>
-        </button>
+        <button id="add-tasks" class="btn-add-tasks" onclick="toggleModal()"></button>
       </div>
 
       <div id="tasks-list">
@@ -50,7 +48,7 @@
     <div class="modal" id="modal">
       <div class="modal-header">
         <h2>Adicionar Tarefa</h2>
-        <span class="close" onclick="toggleClassModal()">
+        <span class="close" onclick="toggleModal()">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#29292E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </span>
       </div>
@@ -72,7 +70,7 @@
         </div>
         
         <div class="modal-actions">
-          <button type="button" class="cancel" onclick="toggleClassModal()">Cancelar</button>
+          <button type="button" class="cancel" onclick="toggleModal()">Cancelar</button>
           <button type="submit" class="submit">Salvar</button>
         </div>
 

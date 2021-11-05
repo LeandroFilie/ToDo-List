@@ -3,7 +3,7 @@
   --primary-color: #2660A4;
 }
 
-html {
+body {
   --text-color: #29292E;
   --secondary-text-color: #F8F8F8;
   --bg-color: #FEFEFE;
@@ -13,7 +13,7 @@ html {
   --border-color: #E8E8E8;
 }
 
-html[data-theme="dark"] {
+body[data-theme="dark"] {
   --text-color: #FEFEFE;
   --secondary-text-color: #F8F8F8;
   --bg-color: #1A1A1A;
