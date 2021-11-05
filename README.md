@@ -16,7 +16,7 @@ ToDo List é um projeto de gerenciamento de tarefas. Nele é possível visualiza
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 - HTML
-- CSS, com preprocessador SCSS
+- CSS com SCSS
 - JavaScript
 
 ## Behavior
