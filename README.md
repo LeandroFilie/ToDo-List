@@ -69,8 +69,8 @@ $ git clone https://github.com/LeandroFilie/ToDo-List.git
 # Acesse a pasta do projeto no seu terminal/cmd
 $ cd ToDo-List
 ```
+Para acesso de forma online, acesse: [to-do-list-leandrofilie.vercel.app/](to-do-list-leandrofilie.vercel.app)
 
-Para acesso de forma online, acesse: to-do-list-leandrofilie.vercel.app/
 ---
 
 Feito com :heart: by [Leandro Filié](https://github.com/LeandroFilie)
