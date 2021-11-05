@@ -70,6 +70,7 @@ $ git clone https://github.com/LeandroFilie/ToDo-List.git
 $ cd ToDo-List
 ```
 
+Para acesso de forma online, acesse: to-do-list-leandrofilie.vercel.app/
 ---
 
 Feito com :heart: by [Leandro Filié](https://github.com/LeandroFilie)
