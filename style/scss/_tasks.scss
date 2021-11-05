@@ -4,6 +4,20 @@ main{
 
   @include displayFlex(center,flex-start);
   flex-direction: column;
+
+  #msg{
+    display: none;
+
+    &.show{
+      display: inline-block;
+      border-radius: 4px;
+      background: var(--secondary-bg-color);
+      filter: $filter-box-shadow;
+      padding: 1rem;
+      margin: 5rem 0;
+      font-size: 1.2rem;
+    }
+  }
 }
 
 .tasks{

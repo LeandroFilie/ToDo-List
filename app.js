@@ -80,11 +80,11 @@ const tasks = [
 ]
 
 function getTasks(){
-  
+  return JSON.parse(localStorage.getItem("tasks")) || [];
 }
 
 function uploadTasks(tasks){
-
+  localStorage.setItem("tasks", JSON.stringify(tasks))
 }
 
 function getStatusFilter(){
@@ -138,25 +138,60 @@ function handleFieldDateModal(status = 'none'){
   }
 }
 
+function handleMessagingEmptyTasks(status, element){
+  element.classList.add('show');
+  if(status === 'today'){
+    element.textContent = 'Não há tarefas para hoje';
+  }
+  else if(status === 'opened'){ 
+    element.textContent = 'Não há tarefas em aberto';
+  }
+  else if(status === 'completed'){
+    element.textContent = 'Não há tarefas concluídas';
+  }
+  else{
+    element.textContent = 'Não há tarefas cadastradas';
+  } 
+}
+
+function checkEmptyTasks(status, tasks){
+  const msg = document.getElementById('msg');
+  msg.textContent = '';
+  msg.classList.remove('show');
+
+  if(tasks.length === 0){
+    handleMessagingEmptyTasks(status, msg);
+    return true;
+  }
+  
+  return false
+  
+}
+
 function getTasksWithStatus(status){
+  const tasks = getTasks();
+
   handleFieldDateModal();
 
   if(status === 'today'){
     handleButtonModal('Adicionar Tarefa com conclusão para hoje', 'visible');
+    handleFieldDateModal('today');
 
     const isToday = (task) => compareDate(task.date) === 'today';
-
     const tasksFiltered = tasks.filter(isToday).reverse();
-    tasksFiltered.forEach((task) => buildCardTask(task))
 
-    handleFieldDateModal('today');
+    if(!checkEmptyTasks(status, tasksFiltered)){
+      tasksFiltered.forEach((task) => buildCardTask(task))
+    }
 
   }
   else if(status === 'all'){
     handleButtonModal('Adicionar Tarefa', 'visible');
 
     const tasksFiltered = tasks.reverse();
-    tasksFiltered.forEach((task) => buildCardTask(task))
+    if(!checkEmptyTasks(status, tasksFiltered)){
+      tasksFiltered.forEach((task) => buildCardTask(task))
+    }
   }
   else{
     status === 'completed'  
@@ -166,7 +201,10 @@ function getTasksWithStatus(status){
     const filterTasks = (task) => task.status === status;
   
     const tasksFiltered = tasks.filter(filterTasks).reverse();
-    tasksFiltered.forEach((task) => buildCardTask(task))
+
+    if(!checkEmptyTasks(status, tasksFiltered)){
+      tasksFiltered.forEach((task) => buildCardTask(task))
+    }
   }
 }
 
@@ -183,10 +221,13 @@ function reload(status){
 }
 
 function toggleCompleted(id,status){
+  const tasks = getTasks();
   const indexTask = tasks.findIndex(task => task.id === id);
 
   if(status === 'opened') tasks[indexTask].status = 'completed';
   if(status === 'completed') tasks[indexTask].status = 'opened';
+
+  uploadTasks(tasks);
 
   const task = document.querySelector(`[data-id='${id}']`);
 
@@ -259,7 +300,12 @@ function addTask(event){
   let date = document.getElementById('date').value.split('-');
   date = `${date[2]}/${date[1]}/${date[0]}`;
 
-  const id = tasks[(tasks.length)-1].id + 1;
+  const tasks = getTasks();
+  const id = (
+    tasks.length === 0
+    ? 1
+    : tasks[(tasks.length)-1].id + 1
+  );
 
   const newTask = {
     id,
@@ -270,6 +316,7 @@ function addTask(event){
   }
 
   tasks.push(newTask);
+  uploadTasks(tasks);
 
   emptyInputsForm();
 
@@ -281,8 +328,11 @@ function addTask(event){
 }
 
 function removeTask(id){
+  const tasks = getTasks();
+
   const index = tasks.findIndex(task => task.id === id);
   tasks.splice(index,1);
+  uploadTasks(tasks);
 
   const currentFilter = getStatusFilter();
 
