@@ -286,6 +286,36 @@ main {
           flex-direction: column;
 }
 
+main .toast {
+  position: fixed;
+  top: 3rem;
+  right: 0;
+  border-radius: 4px;
+  background: var(--primary-color);
+  color: var(--secondary-text-color);
+  padding: 1rem;
+  visibility: hidden;
+  -webkit-transform: translateX(20rem);
+          transform: translateX(20rem);
+}
+
+main .toast.hide {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+main .toast.show {
+  visibility: visible;
+  -webkit-transform: translateX(-1rem);
+          transform: translateX(-1rem);
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+main .toast.delete {
+  background: #E73F5D;
+}
+
 main #msg {
   display: none;
 }
@@ -454,6 +484,12 @@ main #msg.show {
 
 #tasks-list .card-task.completed .date-task, #tasks-list .card-task.completed .date-task.past {
   background: var(--completed-text-color);
+}
+
+@media (max-width: 600px) {
+  .toast {
+    margin-top: 76px;
+  }
 }
 
 @media (max-width: 450px) {

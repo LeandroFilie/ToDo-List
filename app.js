@@ -48,43 +48,13 @@ function getDate(){
 }
 
 // App
-const tasks = [
-  {
-    "id": 1,
-    "title": "Nome Tarefa",
-    "description": "Descrição da Tarefa",
-    "date": "30/10/2021",
-    "status": "opened"
-  },
-  {
-    "id": 2,
-    "title": "Nome Tarefa",
-    "description": "Descrição da Tarefa",
-    "date": "30/10/2021",
-    "status": "completed"
-  },
-  {
-    "id": 3,
-    "title": "Nome Tarefa",
-    "description": "Descrição da Tarefa",
-    "date": "01/11/2021",
-    "status": "opened"
-  },
-  {
-    "id": 4,
-    "title": "Nome Tarefa",
-    "description": "Descrição da Tarefa",
-    "date": "02/11/2021",
-    "status": "completed"
-  }
-]
 
 function getTasks(){
   return JSON.parse(localStorage.getItem("tasks")) || [];
 }
 
 function uploadTasks(tasks){
-  localStorage.setItem("tasks", JSON.stringify(tasks))
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 function getStatusFilter(){
@@ -220,25 +190,40 @@ function reload(status){
   init(status);
 }
 
-function toggleCompleted(id,status){
+function toggleCompleted(id){
   const tasks = getTasks();
-  const indexTask = tasks.findIndex(task => task.id === id);
 
-  if(status === 'opened') tasks[indexTask].status = 'completed';
-  if(status === 'completed') tasks[indexTask].status = 'opened';
+  const indexTask = tasks.findIndex(task => task.id === id);
+  const task = document.querySelector(`[data-id='${id}']`);
+  const isOpened = task.classList.contains('opened');
+
+  if(isOpened){
+    tasks[indexTask].status = 'completed';
+    task.classList.add('completed');
+    task.classList.remove('opened');
+  } 
+  else{
+    tasks[indexTask].status = 'opened';
+    task.classList.add('opened');
+    task.classList.remove('completed');
+  }
 
   uploadTasks(tasks);
-
-  const task = document.querySelector(`[data-id='${id}']`);
-
-  task.classList.toggle('completed');
-  task.classList.toggle('opened');
 
   const currentStatus = getStatusFilter();
 
   if(currentStatus === 'opened' || currentStatus === 'completed'){
     reload(currentStatus);
   } 
+
+  const toast = document.getElementById('toast-completed');
+
+  toast.classList.add('show');
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    toast.classList.add('hide');
+  }, 3000)
 }
 
 function compareDate(date){
@@ -269,7 +254,7 @@ function buildCardTask(task){
       </div>
       <p>${task.description}</p>
       <div class="actions">
-        <img src="./assets/check-circle.svg" alt="Marcar como concluida" onclick="toggleCompleted(${task.id}, '${task.status}')"/>
+        <img src="./assets/check-circle.svg" alt="Marcar como concluida" onclick="toggleCompleted(${task.id})"/>
         <img src="./assets/trash.svg" alt="Excluir" onclick="removeTask(${task.id})"/>
       </div>
   `; 
@@ -337,6 +322,15 @@ function removeTask(id){
   const currentFilter = getStatusFilter();
 
   reload(currentFilter);
+
+  const toast = document.getElementById('toast-delete');
+
+  toast.classList.add('show');
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    toast.classList.add('hide');
+  }, 3000)
 }
 
-init()
+init();

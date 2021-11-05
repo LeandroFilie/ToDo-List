@@ -5,6 +5,36 @@ main{
   @include displayFlex(center,flex-start);
   flex-direction: column;
 
+  .toast{
+    position: fixed;
+    top: 3rem;
+    right: 0;
+
+    border-radius: 4px;
+    background: var(--primary-color);
+    color: var(--secondary-text-color);
+
+    padding: 1rem;
+
+    visibility: hidden;
+    transform: translateX(20rem);
+
+    &.hide{
+      transition: all 0.5s;
+    }
+
+    &.show{
+      visibility: visible;
+
+      transform: translateX(-1rem);
+      transition: all 0.2s;
+    }
+
+    &.delete{
+      background: #E73F5D;
+    }
+  }
+
   #msg{
     display: none;
 
@@ -127,6 +157,12 @@ main{
         background: var(--completed-text-color);
       }
     }
+  }
+}
+
+@media (max-width: 600px){
+  .toast{
+    margin-top: 76px;
   }
 }
 
