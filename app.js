@@ -1,4 +1,3 @@
-// Layout
 function toggleMenuMobile(){
   const buttonMenu = document.getElementById('open-menu');
   const menu = document.getElementById('menu')
@@ -14,23 +13,41 @@ function toggleModal(){
   modalWrapper.classList.toggle('show');
 }
 
-function switchTheme(){
-  const currentTheme = document.getElementsByTagName('body')[0].dataset;
+function handleButtonSwitchTheme(theme){
   const buttonsSwitchTheme = document.querySelectorAll('.theme-switcher');
 
-  if(currentTheme.theme === 'light'){
-    buttonsSwitchTheme.forEach(button => {
-      button.attributes.src.value = './assets/sun.svg';
-    })
-
-    currentTheme.theme = 'dark';
-  }
-  else{
+  if(theme === 'light'){
     buttonsSwitchTheme.forEach(button => {
       button.attributes.src.value = './assets/moon.svg';
     })
+  }
+  else{
+    buttonsSwitchTheme.forEach(button => {
+      button.attributes.src.value = './assets/sun.svg';
+    })
+  }
+}
 
+function getTheme(){
+  const theme = localStorage.getItem('theme');
+
+  document.getElementsByTagName('body')[0].dataset.theme = theme;
+
+  handleButtonSwitchTheme(theme);
+}
+
+function switchTheme(){
+  const currentTheme = document.getElementsByTagName('body')[0].dataset;
+
+  if(currentTheme.theme === 'light'){
+    currentTheme.theme = 'dark';
+    handleButtonSwitchTheme(currentTheme.theme);
+    localStorage.setItem('theme','dark');
+  }
+  else{
     currentTheme.theme = 'light';
+    handleButtonSwitchTheme(currentTheme.theme);
+    localStorage.setItem('theme','light');
   }
 }
 
@@ -46,8 +63,6 @@ function getDate(){
 
   document.getElementById('currentDate').innerHTML = `${weekDay}, ${day} de ${month} de ${year}`;
 }
-
-// App
 
 function getTasks(){
   return JSON.parse(localStorage.getItem("tasks")) || [];
@@ -334,3 +349,5 @@ function removeTask(id){
 }
 
 init();
+
+getTheme();
