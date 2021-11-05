@@ -29,7 +29,11 @@ function handleButtonSwitchTheme(theme){
 }
 
 function getTheme(){
-  const theme = localStorage.getItem('theme');
+  let theme = localStorage.getItem('theme');
+  
+  if(theme === null){
+    theme = 'light';
+  }
 
   document.getElementsByTagName('body')[0].dataset.theme = theme;
 
