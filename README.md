@@ -16,7 +16,7 @@ ToDo List é um projeto de gerenciamento de tarefas. Nele é possível visualiza
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 - HTML
-- CSS
+- CSS com SCSS
 - JavaScript
 
 ## Behavior
@@ -69,6 +69,7 @@ $ git clone https://github.com/LeandroFilie/ToDo-List.git
 # Acesse a pasta do projeto no seu terminal/cmd
 $ cd ToDo-List
 ```
+Para acesso de forma online, acesse: [to-do-list-leandrofilie.vercel.app/](https://to-do-list-leandrofilie.vercel.app)
 
 ---
 
