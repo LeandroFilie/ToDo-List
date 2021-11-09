@@ -11,6 +11,9 @@ function toggleModal(){
 
   modal.classList.toggle('show-modal');
   modalWrapper.classList.toggle('show');
+
+  const buttonMenuModal = document.getElementById('open-menu');
+  buttonMenuModal.classList.toggle('modal-show');
 }
 
 function handleButtonSwitchTheme(theme){
@@ -89,6 +92,7 @@ function currentStatusMenuItem(element){
   element.classList.add('current');
   const currentFilter = getStatusFilter();
 
+  toggleMenuMobile();
   reload(currentFilter);
 }
 

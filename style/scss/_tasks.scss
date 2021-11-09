@@ -63,10 +63,6 @@ main{
       text-align: center;
     }
 
-    #switch-theme{
-      cursor: pointer;
-    }
-
   }
 
   .btn-add-tasks{
@@ -91,7 +87,7 @@ main{
       border-radius: 50%;
       background: #fff;
       color: var(--primary-color);
-      width: 24px;
+      min-width: 24px;
       height: 24px;
       font-size: 1.2rem;
       @include displayFlex(center,center);

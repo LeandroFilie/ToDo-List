@@ -121,10 +121,6 @@ a {
   border-radius: 4px;
 }
 
-.lateral-menu .menu #switch-theme-mobile {
-  display: none;
-}
-
 .lateral-menu .menu-button {
   display: none;
   width: 30px;
@@ -209,12 +205,12 @@ a {
   .lateral-menu .menu {
     display: none;
   }
-  .lateral-menu .menu #switch-theme-mobile {
-    display: block;
-  }
   .lateral-menu .menu-button {
     display: block;
     z-index: 101;
+  }
+  .lateral-menu .menu-button.modal-show {
+    pointer-events: none;
   }
   .lateral-menu .menu.active {
     position: fixed;
@@ -262,9 +258,6 @@ a {
       -webkit-transform: translateX(0);
               transform: translateX(0);
     }
-  }
-  .tasks #switch-theme {
-    display: none;
   }
 }
 
@@ -354,10 +347,6 @@ main #msg.show {
   text-align: center;
 }
 
-.tasks header #switch-theme {
-  cursor: pointer;
-}
-
 .tasks .btn-add-tasks {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -389,7 +378,7 @@ main #msg.show {
   border-radius: 50%;
   background: #fff;
   color: var(--primary-color);
-  width: 24px;
+  min-width: 24px;
   height: 24px;
   font-size: 1.2rem;
   display: -webkit-box;

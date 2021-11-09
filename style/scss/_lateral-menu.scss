@@ -35,10 +35,6 @@
       }
     }
 
-    #switch-theme-mobile{
-      display: none;
-    }
-
   }
 
   .menu-button {
@@ -115,15 +111,15 @@
 
     .menu{
       display: none;
-
-      #switch-theme-mobile{
-        display: block;
-      }
     }
 
     .menu-button {
       display: block;
       z-index: 101;
+
+      &.modal-show{
+        pointer-events: none;
+      }
     }
 
     .menu.active {
@@ -156,12 +152,6 @@
       }
     }
 
-  } 
-
-  .tasks{
-    #switch-theme{
-      display: none;
-    }
   }
 
 }
